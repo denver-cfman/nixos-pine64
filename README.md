@@ -24,3 +24,13 @@ nix build --impure --refresh --no-update-lock-file -L -v "github:denver-cfman/ni
 ```
 nix build github:NixOS/nixpkgs/e4f449ab51a283676d3b520c3dbaa3eafa5025b4#pkgsCross.aarch64-multiplatform.screen
 ```
+
+---
+
+Visual Orientation of the "EXP" HeaderThe EXP header is a 10-pin (2x5) male connector on the board.
+The pin layout maps out as follows:text  (Edge of the Board / Audio Jack Side)
+```
+     [ Pin 2 ]  [ Pin 4 ]  [ Pin 6 ]  [ Pin 8 ]  [ Pin 10 ]
+     [ Pin 1 ]  [ Pin 3 ]  [ Pin 5 ]  [ Pin 7 ]  [ Pin  9 ]
+  (Inner Board Side / HDMI Side)
+```
