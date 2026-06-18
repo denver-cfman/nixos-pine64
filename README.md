@@ -28,7 +28,7 @@ K3S_TOKEN=thisisjustatest nix run github:serokell/deploy-rs github:denver-cfman/
 ```
 #### build SD card image for install
 ```
-sudo nix build --impure --refresh --rebuild --no-update-lock-file -L -v github:denver-cfman/nixos-pine64?ref=main --extra-experimental-features "flakes nix-command"
+nix build --impure --refresh --no-update-lock-file -L -v "github:denver-cfman/nixos-pine64?ref=main#default" --extra-experimental-features "flakes nix-command"
 ```
 
 #### Test Compile of a single package
