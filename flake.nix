@@ -66,6 +66,10 @@
               options = [ "mode=0755" "strictatime" "size=64M" ];
             };
 
+            fileSystems."/" = {
+              options = [ "noatime" "nodiratime" ];
+            };
+
             time.timeZone = "America/Denver";
           
             i18n.defaultLocale = "en_US.UTF-8";
