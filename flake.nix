@@ -7,24 +7,36 @@
 
   outputs = { self, nixpkgs }:
     let
-      hostSystem = "x86_64-linux";
-      targetSystem = "aarch64-linux";
+      # Use nixpkgs local architecture discovery to allow native AND cross evaluation
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       
-      pkgs = import nixpkgs {
-        system = hostSystem;
-        crossSystem = {
-          config = targetSystem;
-        };
+      # Helper function to generate pkgs per-architecture
+      makePkgs = currentSystem: import nixpkgs {
+        system = currentSystem;
+        # DYNAMIC TRIGGER: Only spin up the cross toolchain if we are compiling
+        # on an x86_64 machine targeting an aarch64 machine.
+        crossSystem = if currentSystem == "x86_64-linux" then {
+          config = "aarch64-linux";
+        } else null;
+        
         config = {
           allowUnfree = true;
         };
       };
     in {
-      packages.${hostSystem}.default = self.nixosConfigurations.pine64.config.system.build.sdImage;
+      # Fallback to standard build target mapping on x86 host
+      packages.x86_64-linux.default = self.nixosConfigurations.pine64.config.system.build.sdImage;
+      packages.aarch64-linux.default = self.nixosConfigurations.pine64.config.system.build.sdImage;
 
       nixosConfigurations.pine64 = nixpkgs.lib.nixosSystem {
-        inherit pkgs;
+        # This safely pulls down the evaluation architecture context 
+        # based on the host calling it.
         modules = [
+          # Bind the correct pkgs toolchain array dynamically
+          ({ ... }: {
+            nixpkgs.pkgs = makePkgs builtins.currentSystem;
+          })
+
           "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
           ({ config, pkgs, ... }: {
