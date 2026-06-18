@@ -6,25 +6,14 @@
 ```
 nix flake check -v -L --no-build --no-write-lock-file --all-systems github:denver-cfman/nixos-pine64?ref=main
 ```
-
 ### show this flake
 ```
 nix flake show --all-systems --json github:denver-cfman/nixos-pine64?ref=main | jq '.'
 ```
-
-### remote install via nixos-anywhere
-```bash
-nix run github:nix-community/nixos-anywhere -- --flake 'github:denver-cfman/nixos-pine64?ref=main#pine64' --target-host nixos@10.0.85.186
-```
-
 ### remote update nix (nixos-rebuild) on cluster head
 #### nixos-rebuild
 ```
 sudo nixos-rebuild switch --impure --refresh --flake github:denver-cfman/nixos-pine64?ref=main#pine64 --no-write-lock-file
-```
-#### deploy-rs
-```
-K3S_TOKEN=thisisjustatest nix run github:serokell/deploy-rs github:denver-cfman/nixos-pine64?ref=main#pine64 -- -s -d --ssh-user giezac --hostname 10.0.81.99
 ```
 #### build SD card image for install
 ```
