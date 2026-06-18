@@ -52,9 +52,10 @@
             services.getty.autologinUser = "root";
 
             # Configure the SD card image construction settings
+            image.fileName = "pine64-plus-sd-image.img";
             sdImage = {
               # FIX: Restored required parameter inside the correct configuration block
-              imageName = "pine64-plus-sd-image.img"; 
+              #imageName = "pine64-plus-sd-image.img"; 
               
               postBuildCommands = '' 
                 echo "==> Embedding Allwinner SPL/U-Boot into raw image..." 
