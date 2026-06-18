@@ -77,6 +77,12 @@
               SyncIntervalSec=5m
             '';
 
+            zramSwap = {
+              enable = true;
+              algorithm = "zstd";
+              memoryPercent = 50; # Uses up to half your RAM as a compressed buffer
+            };
+
             time.timeZone = "America/Denver";
           
             i18n.defaultLocale = "en_US.UTF-8";
