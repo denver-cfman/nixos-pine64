@@ -117,7 +117,7 @@
             image.fileName = "pine64-plus-sd-image.img";
 
             sdImage = {
-              imageName = "pine64-plus-sd-image.img";
+              #imageName = "pine64-plus-sd-image.img";
               postBuildCommands = ''
                 echo "==> Embedding Allwinner SPL/U-Boot into raw image..."
                 dd if=${pkgs.ubootPine64}/u-boot-sunxi-with-spl.bin of=$img conv=notrunc bs=1k seek=8
