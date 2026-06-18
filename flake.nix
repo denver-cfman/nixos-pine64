@@ -15,12 +15,13 @@
         crossSystem = {
           config = targetSystem;
         };
+        config = {
+          allowUnfree = true;
+        };
       };
     in {
-      # 1. FIX: Keeps the flake packages buildable via standard 'nix build'
       packages.${hostSystem}.default = self.nixosConfigurations.pine64.config.system.build.sdImage;
 
-      # 2. FIX: Exposes the exact named configuration 'nixos-rebuild' expects to find
       nixosConfigurations.pine64 = nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
@@ -59,13 +60,13 @@
               LC_TELEPHONE = "en_US.UTF-8";
               LC_TIME = "en_US.UTF-8";
             };
-          
+
             users.users.giezac = {
               isNormalUser = true;
               description = "giezac";
               extraGroups = [ "networkmanager" "wheel" ];
               packages = with pkgs; [
-                oh-my-zsh 
+                oh-my-zsh
               ];
               password = "changeme";
               openssh.authorizedKeys.keys = [
@@ -76,13 +77,9 @@
             users.users.root.openssh.authorizedKeys.keys = [
                   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPmNXnRi9A/6hQL0wxpyti2Qo+Sd8LZt0uLu/hSJ91tH root@R210ii"
             ];
-
-
             networking.hostName = "pine64";
 
             systemd.services."serial-getty@ttyS0".enable = true;
-          
-            nixpkgs.config.allowUnfree = true;
           
             nix.settings.experimental-features = [ "nix-command" "flakes" ];
           
@@ -105,15 +102,11 @@
             };
             services.getty.autologinUser = "giezac";
 
-            # Configure the SD card image construction settings
-            image.fileName = "pine64-plus-sd-image.img";
             sdImage = {
-              # FIX: Restored required parameter inside the correct configuration block
-              #imageName = "pine64-plus-sd-image.img"; 
-              
-              postBuildCommands = '' 
-                echo "==> Embedding Allwinner SPL/U-Boot into raw image..." 
-                dd if=${pkgs.ubootPine64}/u-boot-sunxi-with-spl.bin of=$img conv=notrunc bs=1k seek=8 
+              imageName = "pine64-plus-sd-image.img";
+              postBuildCommands = ''
+                echo "==> Embedding Allwinner SPL/U-Boot into raw image..."
+                dd if=${pkgs.ubootPine64}/u-boot-sunxi-with-spl.bin of=$img conv=notrunc bs=1k seek=8
               '';
             };
 
