@@ -57,6 +57,15 @@
               "panic=10"
             ];
 
+            boot.tmp.useTmpfs = true;
+            boot.tmp.tmpfsSize = "256M"; # Cap it so it doesn't exhaust your RAM
+            
+            fileSystems."/var/log" = {
+              device = "none";
+              fsType = "tmpfs";
+              options = [ "mode=0755" "strictatime" "size=64M" ];
+            };
+
             time.timeZone = "America/Denver";
           
             i18n.defaultLocale = "en_US.UTF-8";
