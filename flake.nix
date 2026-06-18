@@ -114,6 +114,8 @@
             };
             services.getty.autologinUser = "giezac";
 
+            image.fileName = "pine64-plus-sd-image.img";
+
             sdImage = {
               imageName = "pine64-plus-sd-image.img";
               postBuildCommands = ''
