@@ -70,6 +70,13 @@
               options = [ "noatime" "nodiratime" ];
             };
 
+            services.journald.extraConfig = ''
+              Storage=volatile
+              RuntimeMaxUse=32M
+              MaxLevelStore=info
+              SyncIntervalSec=5m
+            '';
+
             time.timeZone = "America/Denver";
           
             i18n.defaultLocale = "en_US.UTF-8";
