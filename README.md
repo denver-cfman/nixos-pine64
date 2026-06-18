@@ -26,9 +26,9 @@ sudo nixos-rebuild switch --impure --refresh --flake github:denver-cfman/nixos-p
 ```
 K3S_TOKEN=thisisjustatest nix run github:serokell/deploy-rs github:denver-cfman/nixos-pine64?ref=main#pine64 -- -s -d --ssh-user giezac --hostname 10.0.81.99
 ```
-#### build iso image for install
+#### build SD card image for install
 ```
-sudo nix build --impure --refresh --rebuild --no-update-lock-file -L -v github:denver-cfman/nixos-pine64?ref=main#nixosConfigurations.pine64.config.system.build.isoImage --extra-experimental-features "flakes nix-command"
+sudo nix build --impure --refresh --rebuild --no-update-lock-file -L -v github:denver-cfman/nixos-pine64?ref=main --extra-experimental-features "flakes nix-command"
 ```
 
 #### Test Compile of a single package
