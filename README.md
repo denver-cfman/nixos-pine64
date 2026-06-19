@@ -1,6 +1,8 @@
 # nixos-pine64
 ---
 
+![Pine64+ SoC Board](Pine64_Board_Connector.png)
+
 ---
 ### check this flake
 ```
