@@ -36,7 +36,7 @@ Do not connect a 5V power line to these data pins.
 |Pin 6 (or Pin 9)|GND|(Ground)GND|Connect to GND on your adapter|
 
 ---
-
+![EXP Port](IMG_0547.png)
 Visual Orientation of the "EXP" HeaderThe EXP header is a 10-pin (2x5) male connector on the board.
 The pin layout maps out as follows:text  (Edge of the Board / Audio Jack Side)
 ```
