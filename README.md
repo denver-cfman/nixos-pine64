@@ -31,9 +31,9 @@ The Serial (UART0) PinoutThe UART0 serial connection uses a 3.3V TTL logic level
 Do not connect a 5V power line to these data pins.
 |"EXP" Header Pin Number | Pin Name / Function | Allwinner A64 SoC Pin | Connection to USB-to-UART Adapter|
 |---|---|---|---|
-|Pin 7|RX (Receive)PB9|Connect to TX on your adapter|
-|Pin 8|TX (Transmit)PB8|Connect to RX on your adapter|
-|Pin 6 (or Pin 9)|GND (Ground)GND|Connect to GND on your adapter|
+|Pin 7|RX (Receive)|PB9|Connect to TX on your adapter|
+|Pin 8|TX (Transmit)|PB8|Connect to RX on your adapter|
+|Pin 6 (or Pin 9)|GND|(Ground)GND|Connect to GND on your adapter|
 
 ---
 
