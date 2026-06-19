@@ -49,13 +49,20 @@
               "uio_pdrv_genirq"
               "usb_storage"
             ];
-
+            
             boot.kernelParams = [
-              "console=ttyS0,115200n8"
               "console=tty1"
+              "console=ttyS0,115200n8" # Set serial console as secondary or primary
               "earlycon=uart8250,mmio32,0x01c28000"
               "panic=10"
             ];
+            
+            systemd.services."serial-getty@ttyS0" = {
+              enable = true;
+              wantedBy = [ "getty.target" ];
+              serviceConfig.Restart = "always";
+            };
+
 
             boot.tmp.useTmpfs = true;
             boot.tmp.tmpfsSize = "256M"; # Cap it so it doesn't exhaust your RAM
@@ -116,8 +123,6 @@
                   "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPmNXnRi9A/6hQL0wxpyti2Qo+Sd8LZt0uLu/hSJ91tH root@R210ii"
             ];
             networking.hostName = "pine64";
-
-            systemd.services."serial-getty@ttyS0".enable = true;
           
             nix.settings.experimental-features = [ "nix-command" "flakes" ];
           
