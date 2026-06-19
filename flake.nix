@@ -57,6 +57,32 @@
               "panic=10"
             ];
 
+            boot.tmp.useTmpfs = true;
+            boot.tmp.tmpfsSize = "256M"; # Cap it so it doesn't exhaust your RAM
+            
+            fileSystems."/var/log" = {
+              device = "none";
+              fsType = "tmpfs";
+              options = [ "mode=0755" "strictatime" "size=64M" ];
+            };
+
+            fileSystems."/" = {
+              options = [ "noatime" "nodiratime" ];
+            };
+
+            services.journald.extraConfig = ''
+              Storage=volatile
+              RuntimeMaxUse=32M
+              MaxLevelStore=info
+              SyncIntervalSec=5m
+            '';
+
+            zramSwap = {
+              enable = true;
+              algorithm = "zstd";
+              memoryPercent = 50; # Uses up to half your RAM as a compressed buffer
+            };
+
             time.timeZone = "America/Denver";
           
             i18n.defaultLocale = "en_US.UTF-8";
